@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birlikteki Süremiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Merriweather:wght@300&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basit Ghibli/Romantik Stil Ayarları */
+        body {
+            background-color: #f4f1e9; /* Yumuşak bir krem rengi */
+            font-family: 'Merriweather', serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden; /* Animasyonlar için */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e0c4c4; /* Romantik bir dokunuş */
+        }
+
+        h1 {
+            font-family: 'Marcellus', serif; /* Daha şık bir başlık fontu */
+            color: #d9534f; /* Kırmızıya yakın bir aşk rengi */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Sayaç Kutucukları */
+        #counter {
+            display: flex;
+            gap: 20px; /* Kutucuklar arası boşluk */
+            justify-content: center;
+        }
+
+        .box {
+            background-color: #d9534f;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 100px;
+            font-size: 1.2em;
+        }
+
+        .box span {
+            font-size: 3em; /* Sayılar büyük olsun */
+            display: block;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Birlikteki Yolculuğumuz</h1>
+        
+        <div id="counter">
+            <div class="box">
+                <span id="days">0</span>
+                Gün
+            </div>
+            <div class="box">
+                <span id="hours">0</span>
+                Saat
+            </div>
+            <div class="box">
+                <span id="minutes">0</span>
+                Dakika
+            </div>
+            <div class="box">
+                <span id="seconds">0</span>
+                Saniye
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Burası JavaScript Kısmı ---
+
+        // 1. Başlangıç Tarihini Ayarla (Yıl, Ay-1, Gün, Saat, Dakika, Saniye)
+        // AY DİKKAT: JavaScript'te aylar 0'dan başlar (Ocak=0, Kasım=10)
+        const startDate = new Date(2024, 10, 16, 12, 0, 0);
+
+        function updateCounter() {
+            // 2. Şimdiki zamanı al
+            const now = new Date();
+
+            // 3. Aradaki farkı milisaniye olarak bul
+            const diff = now - startDate;
+
+            // 4. Farkı gün, saat, dakika, saniyeye çevir
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // 5. HTML'deki elemanları güncelle
+            // Başına '0' ekleme (eğer 10'dan küçükse)
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = pad(hours);
+            document.getElementById('minutes').innerText = pad(minutes);
+            document.getElementById('seconds').innerText = pad(seconds);
+        }
+
+        // Sayıların başına '0' ekleyen yardımcı fonksiyon (örn: 9 -> 09)
+        function pad(num) {
+            return num < 10 ? '0' + num : num;
+        }
+
+        // 6. Sayacı her saniye (1000 milisaniye) güncelle
+        setInterval(updateCounter, 1000);
+
+        // Sayfa ilk yüklendiğinde de çalışsın (1 saniye beklememek için)
+        updateCounter();
+
+    </script>
+</body>
+</html>
