@@ -10,7 +10,7 @@
     
     <style>
         body {
-            background-color: #fcefee; /* Romantik pembe/krem arka plan */
+            background-color: #fcefee;
             font-family: 'Merriweather', serif;
             color: #443a3a;
             display: flex;
@@ -37,7 +37,6 @@
             position: absolute;
             bottom: 0;
             font-size: 2em;
-            /* DEĞİŞİKLİK: Rengi daha belirgin (opaklık %20 -> %50) */
             color: rgba(217, 83, 79, 0.5); 
             animation: rise 15s linear infinite;
         }
@@ -52,7 +51,6 @@
         @keyframes rise {
             0% {
                 transform: translateY(0);
-                /* DEĞİŞİKLİK: Tam opaklıkta başlasın */
                 opacity: 1; 
             }
             100% {
@@ -70,20 +68,25 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border: 2px solid #d9534f;
             z-index: 1;
+            /* Ana kutunun çok genişlemesini engelle */
+            max-width: 800px;
+            width: 90%; /* Ekran küçüldükçe o da küçülsün */
         }
 
         h1 {
             font-family: 'Marcellus', serif;
             color: #d9534f;
             font-size: 3em;
-            margin-top: 20px; /* Üstte biraz boşluk */
-            margin-bottom: 30px; /* Sayaçla arasına boşluk */
+            margin-top: 20px;
+            margin-bottom: 30px;
         }
 
         #counter {
             display: flex;
             gap: 20px;
             justify-content: center;
+            /* YENİ EKLENDİ: Kutular sığmazsa alt satıra atlasın */
+            flex-wrap: wrap; 
         }
 
         .box {
@@ -93,6 +96,8 @@
             border-radius: 10px;
             min-width: 100px;
             font-size: 1.2em;
+            /* YENİ EKLENDİ: Esnek büyüme/küçülme */
+            flex: 1 1 100px; 
         }
 
         .box span {
@@ -101,12 +106,45 @@
             font-weight: bold;
         }
         
-        /* YENİ EKLENEN ALT YAZI STİLİ */
         .footer-text {
-            font-family: 'Marcellus', serif; /* Şık font */
+            font-family: 'Marcellus', serif;
             font-size: 1.5em;
-            margin-top: 30px; /* Sayaçla arasına boşluk */
-            color: #d9534f; /* Ana kırmızı rengimiz */
+            margin-top: 30px;
+            color: #d9534f;
+        }
+
+        /* ----------------------------------------------
+        YENİ EKLENEN RESPONSIVE KISMI (MOBİL UYUMLULUK)
+        ----------------------------------------------
+        */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px; /* Kenar boşluklarını azalt */
+                width: 90%; /* Zaten %90 ama garantilesin */
+            }
+
+            h1 {
+                font-size: 2.2em; /* Başlığı küçült */
+            }
+
+            #counter {
+                gap: 15px; /* Kutucukların arasını azalt */
+            }
+
+            .box {
+                padding: 15px; /* Kutu iç boşluğunu azalt */
+                min-width: 80px; /* Minimum genişliği azalt */
+                font-size: 1em; /* Kutu (Gün, Saat..) yazısını küçült */
+            }
+
+            .box span {
+                font-size: 2.5em; /* Kutu (Sayı) yazısını küçült */
+            }
+
+            .footer-text {
+                font-size: 1.2em; /* Alt yazıyı küçült */
+                margin-top: 25px;
+            }
         }
     </style>
 </head>
