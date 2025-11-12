@@ -3,45 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birlikteki Süremiz</title>
+    <title>Bizim Hikayemiz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Merriweather:wght@300&display=swap" rel="stylesheet">
     
     <style>
-        /* Basit Ghibli/Romantik Stil Ayarları */
         body {
-            background-color: #f4f1e9; /* Yumuşak bir krem rengi */
+            background-color: #fcefee; /* Romantik pembe/krem arka plan */
             font-family: 'Merriweather', serif;
-            color: #333;
+            color: #443a3a;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             text-align: center;
-            overflow: hidden; /* Animasyonlar için */
+            overflow: hidden; 
         }
 
+        /* --- YÜKSELEN KALPLER (Daha Belirgin) --- */
+        .hearts-container {
+            position: fixed;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            bottom: 0;
+            font-size: 2em;
+            /* DEĞİŞİKLİK: Rengi daha belirgin (opaklık %20 -> %50) */
+            color: rgba(217, 83, 79, 0.5); 
+            animation: rise 15s linear infinite;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: -2s; animation-duration: 12s; }
+        .heart:nth-child(2) { left: 20%; animation-delay: -5s; font-size: 1.5em; }
+        .heart:nth-child(3) { left: 30%; animation-delay: -7s; animation-duration: 18s; }
+        .heart:nth-child(4) { left: 50%; animation-delay: -1s; font-size: 2.5em; }
+        .heart:nth-child(5) { left: 65%; animation-delay: -3s; }
+        .heart:nth-child(6) { left: 80%; animation-delay: -6s; animation-duration: 14s; }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+                /* DEĞİŞİKLİK: Tam opaklıkta başlasın */
+                opacity: 1; 
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+        /* --- ANIMASYON SONU --- */
+
+
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 40px 60px;
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e0c4c4; /* Romantik bir dokunuş */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d9534f;
+            z-index: 1;
         }
 
         h1 {
-            font-family: 'Marcellus', serif; /* Daha şık bir başlık fontu */
-            color: #d9534f; /* Kırmızıya yakın bir aşk rengi */
-            font-size: 2.5em;
-            margin-bottom: 20px;
+            font-family: 'Marcellus', serif;
+            color: #d9534f;
+            font-size: 3em;
+            margin-top: 20px; /* Üstte biraz boşluk */
+            margin-bottom: 30px; /* Sayaçla arasına boşluk */
         }
 
-        /* Sayaç Kutucukları */
         #counter {
             display: flex;
-            gap: 20px; /* Kutucuklar arası boşluk */
+            gap: 20px;
             justify-content: center;
         }
 
@@ -55,16 +96,34 @@
         }
 
         .box span {
-            font-size: 3em; /* Sayılar büyük olsun */
+            font-size: 3em;
             display: block;
             font-weight: bold;
+        }
+        
+        /* YENİ EKLENEN ALT YAZI STİLİ */
+        .footer-text {
+            font-family: 'Marcellus', serif; /* Şık font */
+            font-size: 1.5em;
+            margin-top: 30px; /* Sayaçla arasına boşluk */
+            color: #d9534f; /* Ana kırmızı rengimiz */
         }
     </style>
 </head>
 <body>
 
+    <div class="hearts-container">
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+        <div class="heart">♥</div>
+    </div>
+
     <div class="container">
-        <h1>Birlikteki Yolculuğumuz</h1>
+        
+        <h1> Ebrar ♥ Uğur </h1>
         
         <div id="counter">
             <div class="box">
@@ -84,47 +143,39 @@
                 Saniye
             </div>
         </div>
+        
+        <p class="footer-text">KALPLERİMİZ BİRLİKTE ATIYOR..</p>
+        
     </div>
 
     <script>
-        // --- Burası JavaScript Kısmı ---
-
-        // 1. Başlangıç Tarihini Ayarla (Yıl, Ay-1, Gün, Saat, Dakika, Saniye)
-        // AY DİKKAT: JavaScript'te aylar 0'dan başlar (Ocak=0, Kasım=10)
-        const startDate = new Date(2024, 10, 16, 12, 0, 0);
+        // --- JavaScript Kısmı (Tarihi ayarlar) ---
+        const startDate = new Date(2024, 10, 16, 12, 0, 0); // Kasım=10 (Aylar 0'dan başlar)
 
         function updateCounter() {
-            // 2. Şimdiki zamanı al
             const now = new Date();
-
-            // 3. Aradaki farkı milisaniye olarak bul
             const diff = now - startDate;
 
-            // 4. Farkı gün, saat, dakika, saniyeye çevir
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // 5. HTML'deki elemanları güncelle
-            // Başına '0' ekleme (eğer 10'dan küçükse)
             document.getElementById('days').innerText = days;
             document.getElementById('hours').innerText = pad(hours);
             document.getElementById('minutes').innerText = pad(minutes);
             document.getElementById('seconds').innerText = pad(seconds);
         }
 
-        // Sayıların başına '0' ekleyen yardımcı fonksiyon (örn: 9 -> 09)
+        // Sayıların başına '0' ekler (örn: 9 -> 09)
         function pad(num) {
             return num < 10 ? '0' + num : num;
         }
 
-        // 6. Sayacı her saniye (1000 milisaniye) güncelle
+        // Sayacı her saniye günceller
         setInterval(updateCounter, 1000);
-
-        // Sayfa ilk yüklendiğinde de çalışsın (1 saniye beklememek için)
+        // Sayfa açılır açılmaz da günceller
         updateCounter();
-
     </script>
 </body>
 </html>
